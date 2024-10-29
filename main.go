@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
-
+	"log"
 	"github.com/georgechieng-sc/interns-2022/folder"
-	"github.com/gofrs/uuid"
+	//"github.com/gofrs/uuid"
 )
 
 func main() {
 	// Set the orgID to a valid UUID from the sample data
-	orgID := uuid.FromStringOrNil("38b9879b-f73b-4b0e-b9d9-4fc4c23643a7")
+	//orgID := uuid.FromStringOrNil("38b9879b-f73b-4b0e-b9d9-4fc4c23643a7")
 
 	// Retrieve all folders
 	res := folder.GetAllFolders()
@@ -29,15 +29,15 @@ func main() {
 	// folder.PrettyPrint(orgFolder)
 
 	// Test case 1: Valid parent folder with children
-	fmt.Println("\nTest Case 1: Valid parent folder 'creative-scalphunter' with children")
-	parentFolderName := "creative-scalphunter"
-	childFolders, err := folderDriver.GetAllChildFolders(orgID, parentFolderName)
-	if err != nil {
-		fmt.Println("Error:", err)
-	} else {
-		fmt.Printf("Child folders of '%s' for orgID: %s\n", parentFolderName, orgID)
-		folder.PrettyPrint(childFolders)
-	}
+	// fmt.Println("\nTest Case 1: Valid parent folder 'creative-scalphunter' with children")
+	// parentFolderName := "creative-scalphunter"
+	// childFolders, err := folderDriver.GetAllChildFolders(orgID, parentFolderName)
+	// if err != nil {
+	// 	fmt.Println("Error:", err)
+	// } else {
+	// 	fmt.Printf("Child folders of '%s' for orgID: %s\n", parentFolderName, orgID)
+	// 	folder.PrettyPrint(childFolders)
+	// }
 
 	//var numbers []int
 	//fmt.Println(numbers)
@@ -63,7 +63,15 @@ func main() {
 	// 	fmt.Printf("Child folders of '%s' for orgID: %s\n", parentFolderName, orgID)
 	// 	folder.PrettyPrint(childFolders)
 	// }
+updatedFolders, err := folderDriver.MoveFolder("creative-scalphunter", "nearby-secret")
+	if err != nil {
+		log.Fatalf("Error: %v", err)
+	}
 
+	// Display the updated folder paths after the move
+	for _, f := range updatedFolders {
+		fmt.Printf("Folder: %s, Path: %s\n", f.Name, f.Paths)
+	}
 
 	
 }

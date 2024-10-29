@@ -84,7 +84,7 @@ func TestGetAllChildFolders(t *testing.T) {
 			wantErr:       false,
 		},
 		{
-			name:          "Nonexistent parent folder",
+			name:          "Invalid parent folder",
 			orgID:         uuid.FromStringOrNil("38b9879b-f73b-4b0e-b9d9-4fc4c23643a7"),
 			parentFolder:  "invalid-folder",
 			want:          nil,

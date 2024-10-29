@@ -13,6 +13,7 @@ func TestMoveFolder(t *testing.T) {
 
 	// Sample UUID to represent the organization
 	orgID := uuid.FromStringOrNil("38b9879b-f73b-4b0e-b9d9-4fc4c23643a7")
+	anotherOrgID := uuid.FromStringOrNil("c1556e17-b7c0-45a3-a6ae-9546248fb17a")
 
 	// Initialize sample folders for testing
 	initialFolders := []folder.Folder{
@@ -20,6 +21,7 @@ func TestMoveFolder(t *testing.T) {
 		{Name: "sub1", OrgId: orgID, Paths: "root.sub1"},
 		{Name: "sub2", OrgId: orgID, Paths: "root.sub2"},
 		{Name: "sub3", OrgId: orgID, Paths: "root.sub1.sub3"},
+		{Name: "sub4", OrgId: anotherOrgID, Paths: "sub4"},
 	}
 
 	// Create the driver with these folders
@@ -74,6 +76,14 @@ func TestMoveFolder(t *testing.T) {
 			destination:    "root",
 			expectError:    true,
 			expectedErrors: "source folder does not exist",
+		},
+		// Test move for another organization
+		{
+			name:           "Move folder to another organization",
+			source:         "sub1",
+			destination:    "sub4",
+			expectError:    true,
+			expectedErrors: "cannot move a folder to a different organization",
 		},
 	}
 
